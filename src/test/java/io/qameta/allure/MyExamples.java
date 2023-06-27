@@ -36,7 +36,6 @@ import static com.codeborne.selenide.Selenide.open;
      */
 
     @Test
-    @AllureId("189739")
     @DisplayName("Some test")
         @Description(useJavaDoc = true)
         public void test1667306661111() {
@@ -54,7 +53,6 @@ import static com.codeborne.selenide.Selenide.open;
         }
 
     @Test
-    @AllureId("189740")
     @DisplayName("new test")
     @Owner("daniil@qameta.io")
     @Feature("Issues")
