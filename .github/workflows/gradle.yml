@@ -62,7 +62,7 @@ jobs:
       - name: install and configure allurectl
         uses: allure-framework/setup-allurectl@v1
       - name: Build with Gradle
-        run: allurectl watch -- ./gradlew clean test --output ${ALLURE_RESULTS}
+        run: allurectl watch -- ./gradlew clean test
   all-tests-2:
     name: job2
     runs-on: ubuntu-latest
@@ -82,4 +82,4 @@ jobs:
       - name: install and configure allurectl
         uses: allure-framework/setup-allurectl@v1
       - name: Build with Gradle
-        run: allurectl watch -- ./gradlew clean test --output ${ALLURE_RESULTS}
+        run: allurectl watch -- ./gradlew clean test
