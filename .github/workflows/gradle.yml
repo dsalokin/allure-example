@@ -40,7 +40,7 @@ jobs:
       - name: install and configure allurectl
         uses: allure-framework/setup-allurectl@v1
       - name: setup allure env
-        id: setup-allure-env
+      - name: setup-allure-env
         run: echo "allure-ci-env=$(bin/allurectl ci env --encode)" >> $GITHUB_OUTPUT
       
   all-tests-1:
