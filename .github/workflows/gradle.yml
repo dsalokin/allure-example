@@ -12,6 +12,9 @@ on:
         description: "Browser for tests"
         required: true
         default: chrome
+      ALLURE_JOB_RUN_ID:
+        description: "ALLURE_JOB_RUN_ID service parameter. Leave blank."
+        required: false
       ALLURE_USERNAME:
         description: "ALLURE_USERNAME service parameter. Leave blank"
         required: false
@@ -21,8 +24,7 @@ env:
   ALLURE_ENDPOINT: https://testing.testops.cloud
   ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
   ALLURE_PROJECT_ID: ${{ secrets.ALLURE_PROJECT_ID }}
-  ALLURE_TESTPLAN_PATH: "./testplan.json"
-  ALLURE_RESULTS: "build/allure-results"
+  ALLURE_RESULTS: build/allure-results
   ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
 
 jobs:
