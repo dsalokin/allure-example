@@ -63,6 +63,8 @@ jobs:
         uses: allure-framework/setup-allurectl@v1
       - name: Build with Gradle
         run: allurectl watch -- ./gradlew clean test
+      - name: print JR_UUID
+        run: echo JR_UUID
       - name: pass job info
         run: export $(./allurectl job-run env)
   all-tests-2:
@@ -85,6 +87,8 @@ jobs:
         uses: allure-framework/setup-allurectl@v1
       - name: add fake job uid
         run: JR_UUID=$(openssl rand -hex 12)
+      - name: print JR_UUID
+        run: echo JR_UUID
       - name: Build with Gradle
         run: allurectl watch --job-run-uid ${JR_UUID} -- ./gradlew clean test
       - name: pass job info
