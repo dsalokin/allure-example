@@ -29,7 +29,7 @@ env:
   ALLURE_PROJECT_ID: ${{ secrets.ALLURE_PROJECT_ID }}
   ALLURE_RESULTS: build/allure-results
   ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-  #JR_UUID: ${{ github.event.inputs.JR_UUID }}
+  ALLURE_JOB_UID: ${{ github.event.inputs.ALLURE_JOB_UID }}
 
 jobs:
   DownloadAllureCtl:
@@ -94,13 +94,13 @@ jobs:
       - name: install and configure allurectl
         uses: allure-framework/setup-allurectl@v1
       - name: add fake job uid
-        run: ALLURE_JOB_UID=$(openssl rand -hex 12)
+        run: echo "JR_UUID:(openssl rand -hex 12)" >> $GITHUB_ENV
       - name: print JR_UUID
-        run: echo "this the second is the JR_UUID ${JR_UUID}"
+        run: echo "this the second is the JR_UUID - ${{ env.JR_UUID }}"
       - name: printenv before
         run: printenv
       - name: Build with Gradle
-        run: allurectl watch --job-run-uid ${ALLURE_JOB_UID} -- ./gradlew clean test
+        run: allurectl watch --job-run-uid ${{ env.JR_UUID }} -- ./gradlew clean test
       - name: printenv after
         run: printenv
       - name: pass job info
