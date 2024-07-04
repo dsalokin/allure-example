@@ -68,7 +68,11 @@ jobs:
       - name: printenv before
         run: printenv
       - name: Build with Gradle
-        run: allurectl watch -- ./gradlew clean test
+        run: |
+          allurectl watch -- ./gradlew clean test
+          allurectl launch close
+          echo "==================================================================printenv===================="
+          printenv
       - name: printenv after
         run: printenv
       - name: pass job info
