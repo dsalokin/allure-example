@@ -94,7 +94,7 @@ jobs:
       - name: install and configure allurectl
         uses: allure-framework/setup-allurectl@v1
       - name: add fake job uid
-        run: echo "JR_UUID:(openssl rand -hex 12)" >> $GITHUB_ENV
+        run: echo "JR_UUID=$(openssl rand -hex 12)" >> $GITHUB_ENV
       - name: print JR_UUID
         run: echo "this the second is the JR_UUID - ${{ env.JR_UUID }}"
       - name: printenv before
