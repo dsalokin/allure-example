@@ -70,9 +70,9 @@ jobs:
       - name: Build with Gradle
         run: |
           allurectl watch -- ./gradlew clean test
+          export $(allurectl job-run env)
           echo "==================================================================printenv===================="
           printenv
-          allurectl launch close
       - name: printenv after
         run: printenv
       - name: pass job info
@@ -110,7 +110,9 @@ jobs:
       - name: printenv before
         run: printenv
       - name: first job-run stop
-        run: allurectl job-run stop
+        run: |
+          export $(allurectl job-run env)
+          allurectl job-run stop
       - name: first launch close
         run: allurectl launch close
       - name: Build with Gradle
