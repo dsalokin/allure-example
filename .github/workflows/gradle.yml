@@ -104,7 +104,6 @@ jobs:
         run: printenv
       - name: run allurectl and tests
         run: |
-          export $(allurectl job-run env)
           allurectl watch --job-run-uid ${{ env.JR_UID }} -- ./gradlew clean test
       - name: printenv after
         run: printenv
