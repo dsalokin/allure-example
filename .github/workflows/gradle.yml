@@ -97,8 +97,6 @@ jobs:
         run: echo "this the second is the JR_UUID - ${{ env.JR_UUID }}"
       - name: printenv before
         run: printenv
-      - name: first launch close
-        run: allurectl launch close
       - name: Build with Gradle
         run: allurectl watch --job-run-uid ${{ env.JR_UUID }} -- ./gradlew clean test
       - name: printenv after
