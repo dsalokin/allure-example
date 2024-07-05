@@ -1,5 +1,4 @@
-name: gh-integration
-#name: separated-launches
+name: gh-integrationon
 
 on:
   push:
@@ -27,7 +26,6 @@ env:
   ALLURE_PROJECT_ID: ${{ secrets.ALLURE_PROJECT_ID }}
   ALLURE_RESULTS: build/allure-results
   ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-  ALLURE_JOB_UID: ${{ github.event.inputs.ALLURE_JOB_UID }}
 
 jobs:
   DownloadAllureCtl:
@@ -65,12 +63,16 @@ jobs:
         uses: allure-framework/setup-allurectl@v1
       - name: printenv before
         run: printenv
-      - name: run allurectl and tests
+      - name: Build with Gradle
         run: |
           allurectl watch -- ./gradlew clean test
           export $(allurectl job-run env)
+          echo "==================================================================printenv===================="
+          printenv
       - name: printenv after
         run: printenv
+      - name: pass job info
+        run: export $(allurectl job-run env)
   all-tests-2:
     name: job2
     runs-on: ubuntu-latest
@@ -79,13 +81,6 @@ jobs:
     env:
       ALLURE_CI_ENV: ${{needs.DownloadAllureCtl.outputs.allure-ci-env}}
     steps:
-      - name: Check job1 status
-        run: |
-          if [ "${{ needs.all-tests-1.result }}" == "failure" ]; then
-            echo "Job 1 failed, but continuing with job 2"
-          else
-            echo "Job 1 succeeded, continuing with job 2"
-          fi
       - name: checkout
         uses: actions/checkout@v3
       - name: install java
@@ -98,12 +93,15 @@ jobs:
         uses: allure-framework/setup-allurectl@v1
       - name: add fake job uid
         run: echo "JR_UUID=$(openssl rand -hex 12)" >> $GITHUB_ENV
-      - name: print JR_UID
-        run: echo "this the second is the JR_UID = ${{ env.JR_UID }}"
+      - name: print JR_UUID
+        run: echo "this the second is the JR_UUID - ${{ env.JR_UUID }}"
       - name: printenv before
         run: printenv
-      - name: run allurectl and tests
-        run: |
-          allurectl watch --job-run-uid ${{ env.JR_UID }} -- ./gradlew clean test
+      - name: first launch close
+        run: allurectl launch close
+      - name: Build with Gradle
+        run: allurectl watch --job-run-uid ${{ env.JR_UUID }} -- ./gradlew clean test
       - name: printenv after
         run: printenv
+      - name: pass job info
+        run: export $(allurectl job-run env)
