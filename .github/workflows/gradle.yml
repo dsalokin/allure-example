@@ -64,9 +64,10 @@ jobs:
         run: printenv
       - name: Build with Gradle
         run: |
-          allurectl watch -- ./gradlew clean test
           export $(allurectl job-run env)
           printenv
+          allurectl launch reopen "$ALLURE_LAUNCH_ID"
+          allurectl watch -- ./gradlew clean test
       - name: printenv after
         run: printenv
       - name: pass job info
