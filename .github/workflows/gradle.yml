@@ -112,7 +112,7 @@ jobs:
           printenv
           echo "+++launch close+++"
           allurectl job-run stop
-          allurectl launch ${{ env.ALLURE_LAUNCH_ID }} close
+          allurectl launch close ${{ env.ALLURE_LAUNCH_ID }}
       - name: printenv after
         run: printenv
       - name: pass job info
