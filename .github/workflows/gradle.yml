@@ -18,8 +18,8 @@ on:
       ALLURE_USERNAME:
         description: "ALLURE_USERNAME service parameter. Leave blank"
         required: false
-      ALLURE_JOB_UID:
-        description: "ALLURE_JOB_UID service parameter. Leave blank. Added for separation of the launches"
+      ALLURE_LAUNCH_ID:
+        description: "ALLURE_LAUNCH_ID service parameter. Leave blank. Added for separation of the launches"
         required: false
 
 
@@ -29,7 +29,7 @@ env:
   ALLURE_PROJECT_ID: ${{ secrets.ALLURE_PROJECT_ID }}
   ALLURE_RESULTS: build/allure-results
   ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-  ALLURE_JOB_UID: ${{ github.event.inputs.ALLURE_JOB_UID }}
+  ALLURE_LAUNCH_ID: ${{ github.event.inputs.ALLURE_LAUNCH_ID }}
 
 jobs:
   DownloadAllureCtl:
@@ -108,7 +108,11 @@ jobs:
       - name: first job-run stop
         run: |
           export $(allurectl job-run env)
+          echo "+++printenv+++"
+          printenv
+          echo "+++launch close+++"
           allurectl job-run stop
+          allurectl launch ${{ env.ALLURE_LAUNCH_ID }} close
       - name: printenv after
         run: printenv
       - name: pass job info
