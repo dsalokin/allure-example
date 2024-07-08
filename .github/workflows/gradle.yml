@@ -114,7 +114,7 @@ jobs:
           echo "ALLURE_CURRENT_LAUNCH_ID=${{ env.ALLURE_CURRENT_LAUNCH_ID }})" >> $GITHUB_ENV
           echo "launch id is ${{ env.ALLURE_CURRENT_LAUNCH_ID }}"
           allurectl job-run stop
-          allurectl launch close '${{ env.ALLURE_LAUNCH_ID }}'
+          allurectl launch close '$ALLURE_LAUNCH_ID'
       - name: printenv after
         run: printenv
       - name: pass job info
