@@ -36,6 +36,7 @@ import static com.codeborne.selenide.Selenide.open;
      */
 
     @Test
+    @AllureId("382190")
     @DisplayName("Some test")
         @Description(useJavaDoc = true)
         public void test1667306661111() {
