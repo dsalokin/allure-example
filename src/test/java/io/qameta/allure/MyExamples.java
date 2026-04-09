@@ -11,12 +11,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
-import static io.qameta.allure.Allure.addAttachment;
-import static io.qameta.allure.Allure.attachment;
-import static io.qameta.allure.Allure.step;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -24,6 +22,9 @@ import java.nio.file.Files;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.*;
+import static io.qameta.allure.Allure.parameter;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @org.junit.jupiter.api.DisplayName("TTempTests.class unit tests")
     public class MyExamples {
@@ -68,6 +69,17 @@ import static com.codeborne.selenide.Selenide.open;
             step("sub step");
         });
 
+    }
+
+    @ParameterizedTest(name = "Something here")
+    @ValueSource(strings = {"-1", "382211"})
+    public void shouldCreateUserNote(String title) {
+        parameter("owner", 111);
+        parameter("repo", 222);
+        parameter("title", title);
+        Allure.label("AS_ID", title);
+
+        assertNotEquals("aaa", title);
     }
 
     @Attachment(value = "Annotated attachment [{type}]", type = "text/plain", fileExtension = ".txt")
