@@ -1,7 +1,6 @@
 package io.qameta.allure;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -37,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
      */
 
     @Test
-    @AllureId("382198")
     @DisplayName("Some test")
         @Description(useJavaDoc = true)
         public void test1667306661111() {
@@ -80,6 +79,19 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
         Allure.label("AS_ID", title);
 
         assertNotEquals("aaa", title);
+    }
+
+    @Test
+    @AllureId("384697")
+    @DisplayName("ручной 2")
+    @Tag("smoke")
+    @Owner("dsalokin")
+    public void newTest() {
+        step("1", () -> {
+            step("выполнили что-то");
+        });
+        step("2");
+        step("3");
     }
 
     @Attachment(value = "Annotated attachment [{type}]", type = "text/plain", fileExtension = ".txt")
