@@ -3,25 +3,16 @@ package io.qameta.allure;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import sun.jvm.hotspot.utilities.Assert;
 
-import java.io.File;
 import java.nio.file.Files;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.*;
 import static io.qameta.allure.Allure.parameter;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -98,6 +89,5 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
     public byte[] textAttachment(String type, String content) {
         return content.getBytes(StandardCharsets.UTF_8);
     }
-
 
 }
